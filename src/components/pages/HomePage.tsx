@@ -1,7 +1,7 @@
 // HPI 1.7-V
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence, useInView } from 'framer-motion';
-import { Plus, Check, Trash2, ArrowRight, Clock, AlertCircle } from 'lucide-react';
+import { Plus, Check, Trash2, ArrowRight, Clock, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Tasks } from '@/entities';
 import Header from '@/components/Header';
@@ -10,25 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-
-// --- Utility Components for Architectural Styling ---
-
-const HairlineDivider = ({ className = "" }: { className?: string }) => (
-  <div className={`w-full h-[1px] bg-foreground/10 ${className}`} />
-);
-
-const SectionHeading = ({ title, subtitle }: { title: string, subtitle?: string }) => (
-  <div className="mb-12 md:mb-20">
-    {subtitle && (
-      <p className="font-heading text-xs md:text-sm uppercase tracking-[0.2em] text-foreground/60 mb-4">
-        {subtitle}
-      </p>
-    )}
-    <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl uppercase text-foreground leading-[0.9]">
-      {title}
-    </h2>
-  </div>
-);
+import { Image } from '@/components/ui/image';
 
 // --- Main Component ---
 
@@ -116,8 +98,7 @@ export default function HomePage() {
     target: heroRef,
     offset: ["start start", "end start"]
   });
-  const heroImageY = useTransform(heroScroll, [0, 1], ["0%", "20%"]);
-  const heroTextY = useTransform(heroScroll, [0, 1], ["0%", "50%"]);
+  const heroTextY = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
   const heroOpacity = useTransform(heroScroll, [0, 0.8], [1, 0]);
 
   const formSectionRef = useRef<HTMLDivElement>(null);
@@ -136,51 +117,79 @@ export default function HomePage() {
       
       {/* 
         =========================================
-        HERO SECTION (Inspiration Layout)
+        HERO SECTION (Bitrix24-Inspired Layout)
         =========================================
       */}
       <section 
         ref={heroRef} 
-        className="relative w-full bg-primary pt-24 md:pt-32 pb-12 md:pb-24 px-4 md:px-8 lg:px-12 min-h-[90vh] flex flex-col"
+        className="relative w-full bg-gradient-to-br from-primary via-primary to-primary/90 pt-20 md:pt-32 pb-20 md:pb-32 px-4 md:px-8 lg:px-12 min-h-[85vh] flex items-center"
       >
-        {/* Massive Typography Header */}
-        <motion.div 
-          style={{ y: heroTextY, opacity: heroOpacity }}
-          className="relative z-20 w-full max-w-[120rem] mx-auto mb-8 md:mb-12"
-        >
-          <h1 className="font-heading text-[13vw] leading-[0.8] tracking-tighter uppercase text-foreground m-0 p-0">
-            TASK. MANAGER
-          </h1>
-        </motion.div>
+        <div className="w-full max-w-[120rem] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            
+            {/* Left Column - Text Content */}
+            <motion.div 
+              style={{ y: heroTextY, opacity: heroOpacity }}
+              className="relative z-20 flex flex-col justify-center"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <p className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-background/80 mb-6">
+                  Organize & Execute
+                </p>
+                <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-background mb-8">
+                  Free Online Task Manager
+                </h1>
+                <p className="font-paragraph text-lg md:text-xl text-background/90 leading-relaxed mb-8 max-w-lg">
+                  Organize and manage your team like a boss. With our free task management tool, you can streamline workflows and boost productivity.
+                </p>
+                
+                {/* Feature List */}
+                <ul className="space-y-4 mb-12">
+                  <li className="flex items-center gap-3 text-background font-paragraph">
+                    <div className="w-2 h-2 bg-background rounded-full" />
+                    <span>Get started in less than 30 minutes</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-background font-paragraph">
+                    <div className="w-2 h-2 bg-background rounded-full" />
+                    <span>Detailed FAQ and onboarding support</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-background font-paragraph">
+                    <div className="w-2 h-2 bg-background rounded-full" />
+                    <span>Migrate your data in one click</span>
+                  </li>
+                </ul>
 
-        {/* Image Container - Full Bleed within padding */}
-        <div className="relative w-full max-w-[120rem] mx-auto flex-1 min-h-[50vh] md:min-h-[60vh] overflow-hidden bg-foreground">
-          <motion.img
-            style={{ y: heroImageY, scale: 1.05 }}
-            src="https://static.wixstatic.com/media/247794_5beea19d48fb4856bd114822f29479bd~mv2.png?originWidth=1280&originHeight=704"
-            alt="Architectural Workspace"
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
-          />
-          
-          {/* Overlay Card - Bottom Left */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute bottom-0 left-0 md:bottom-8 md:left-8 w-full md:w-[480px] bg-background p-8 md:p-10 rounded-tr-2xl md:rounded-2xl z-30 shadow-2xl"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <p className="font-heading text-xs uppercase tracking-[0.2em] text-foreground">System Active</p>
-            </div>
-            <h2 className="font-heading text-2xl md:text-3xl uppercase text-foreground mb-4 leading-tight">
-              Master Your Workflow Architecture
-            </h2>
-            <p className="font-paragraph text-sm md:text-base text-subtletext leading-relaxed">
-              Organize your objectives with precision and clarity. Create, track, and execute tasks efficiently in a streamlined environment designed for absolute productivity.
-            </p>
-          </motion.div>
+                <Button
+                  className="w-fit bg-background text-primary hover:bg-background/90 h-14 px-10 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 group shadow-lg"
+                >
+                  <span className="flex items-center gap-3">
+                    Get Started
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Image */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-background/20 to-transparent z-10 rounded-3xl" />
+              <Image src="https://static.wixstatic.com/media/247794_cb5cc97499fe4078914bf3f720cffc56~mv2.png?originWidth=768&originHeight=448" alt="Task Manager Dashboard" className="w-full h-full object-cover" />
+            </motion.div>
+          </div>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-background/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-background/5 rounded-full blur-3xl -z-10" />
       </section>
 
       {/* 
@@ -190,148 +199,169 @@ export default function HomePage() {
       */}
       <section 
         ref={formSectionRef}
-        className="relative w-full max-w-[120rem] mx-auto px-4 md:px-8 lg:px-12 py-24 md:py-40"
+        className="relative w-full bg-background py-24 md:py-40 px-4 md:px-8 lg:px-12"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-          
-          {/* Sticky Left Column */}
-          <div className="lg:col-span-4">
-            <div className="sticky top-32">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={isFormInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <SectionHeading title="Initiate Protocol" subtitle="01. Data Entry" />
-                <div className="w-16 h-[2px] bg-primary mb-8" />
-                <p className="font-paragraph text-lg text-subtletext leading-relaxed mb-8">
-                  Define the parameters of your next objective. Precision in planning yields excellence in execution. Every detail matters.
-                </p>
-                
-                {/* Decorative Stats */}
-                <div className="grid grid-cols-2 gap-4 border-t border-foreground/10 pt-8">
-                  <div>
-                    <p className="font-heading text-4xl text-foreground">{activeTasksCount}</p>
-                    <p className="font-paragraph text-xs uppercase tracking-widest text-subtletext mt-1">Active</p>
-                  </div>
-                  <div>
-                    <p className="font-heading text-4xl text-foreground">{completedTasksCount}</p>
-                    <p className="font-paragraph text-xs uppercase tracking-widest text-subtletext mt-1">Completed</p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
+        <div className="w-full max-w-[120rem] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isFormInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-primary mb-4">
+              Create & Organize
+            </p>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase leading-tight text-foreground mb-6">
+              Add Your Next Task
+            </h2>
+            <div className="w-20 h-1 bg-primary rounded-full" />
+          </motion.div>
 
-          {/* Form Right Column */}
-          <div className="lg:col-span-8">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={isFormInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="bg-secondary p-8 md:p-12 rounded-2xl border border-foreground/10 shadow-sm relative overflow-hidden"
-            >
-              {/* Decorative background element */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isFormInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="bg-secondary p-8 md:p-12 rounded-3xl border border-foreground/10 shadow-lg relative overflow-hidden"
+          >
+            {/* Decorative background element */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-              <div className="relative z-10 space-y-8">
-                {/* Title Input */}
+            <div className="relative z-10 space-y-8">
+              {/* Title Input */}
+              <div className="group">
+                <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary">
+                  Task Title *
+                </label>
+                <Input
+                  value={newTaskTitle}
+                  onChange={(e) => setNewTaskTitle(e.target.value)}
+                  placeholder="Enter your task..."
+                  className="bg-transparent border-0 border-b-2 border-foreground/20 rounded-none px-0 h-16 text-2xl md:text-3xl font-heading placeholder:text-foreground/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
+                  onKeyDown={(e) => e.key === 'Enter' && handleAddTask()}
+                />
+              </div>
+
+              {/* Notes Input */}
+              <div className="group">
+                <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary">
+                  Description
+                </label>
+                <Textarea
+                  value={newTaskNotes}
+                  onChange={(e) => setNewTaskNotes(e.target.value)}
+                  placeholder="Add details, notes, or requirements..."
+                  className="bg-background border border-foreground/10 rounded-2xl p-4 min-h-[120px] text-base font-paragraph placeholder:text-foreground/30 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary transition-all resize-none"
+                />
+              </div>
+
+              {/* Meta Inputs Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group">
-                  <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary">
-                    Primary Objective *
+                  <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary flex items-center gap-2">
+                    <Clock className="w-3 h-3" /> Due Date
                   </label>
                   <Input
-                    value={newTaskTitle}
-                    onChange={(e) => setNewTaskTitle(e.target.value)}
-                    placeholder="Enter task title..."
-                    className="bg-transparent border-0 border-b-2 border-foreground/20 rounded-none px-0 h-16 text-2xl md:text-3xl font-heading placeholder:text-foreground/20 focus-visible:ring-0 focus-visible:border-primary transition-colors"
-                    onKeyDown={(e) => e.key === 'Enter' && handleAddTask()}
+                    type="date"
+                    value={newTaskDueDate}
+                    onChange={(e) => setNewTaskDueDate(e.target.value)}
+                    className="bg-background border border-foreground/10 rounded-xl h-14 px-4 font-paragraph focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary transition-all"
                   />
                 </div>
 
-                {/* Notes Input */}
                 <div className="group">
-                  <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary">
-                    Supporting Details
+                  <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary flex items-center gap-2">
+                    <AlertCircle className="w-3 h-3" /> Priority
                   </label>
-                  <Textarea
-                    value={newTaskNotes}
-                    onChange={(e) => setNewTaskNotes(e.target.value)}
-                    placeholder="Add context, links, or specific requirements..."
-                    className="bg-background border border-foreground/10 rounded-xl p-4 min-h-[120px] text-base font-paragraph placeholder:text-foreground/30 focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary transition-all resize-none"
-                  />
-                </div>
-
-                {/* Meta Inputs Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="group">
-                    <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary flex items-center gap-2">
-                      <Clock className="w-3 h-3" /> Deadline
-                    </label>
-                    <Input
-                      type="date"
-                      value={newTaskDueDate}
-                      onChange={(e) => setNewTaskDueDate(e.target.value)}
-                      className="bg-background border border-foreground/10 rounded-xl h-14 px-4 font-paragraph focus-visible:ring-1 focus-visible:ring-primary focus-visible:border-primary transition-all"
+                  <div className="flex items-center gap-4 bg-background border border-foreground/10 rounded-xl h-14 px-4 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all">
+                    <input
+                      type="range"
+                      min="1"
+                      max="5"
+                      value={newTaskPriority}
+                      onChange={(e) => setNewTaskPriority(Number(e.target.value))}
+                      className="w-full accent-primary"
                     />
-                  </div>
-
-                  <div className="group">
-                    <label className="font-heading text-xs text-foreground mb-3 block uppercase tracking-[0.15em] transition-colors group-focus-within:text-primary flex items-center gap-2">
-                      <AlertCircle className="w-3 h-3" /> Priority Level
-                    </label>
-                    <div className="flex items-center gap-4 bg-background border border-foreground/10 rounded-xl h-14 px-4 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all">
-                      <input
-                        type="range"
-                        min="1"
-                        max="5"
-                        value={newTaskPriority}
-                        onChange={(e) => setNewTaskPriority(Number(e.target.value))}
-                        className="w-full accent-primary"
-                      />
-                      <span className="font-heading text-xl text-primary w-6 text-center">
-                        {newTaskPriority}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Submit Button */}
-                <div className="pt-6">
-                  <Button
-                    onClick={handleAddTask}
-                    disabled={!newTaskTitle.trim()}
-                    className="w-full md:w-auto bg-foreground text-background hover:bg-primary hover:text-primary-foreground h-16 px-12 text-sm font-heading uppercase tracking-widest rounded-xl transition-all duration-300 disabled:opacity-50 disabled:hover:bg-foreground disabled:hover:text-background group"
-                  >
-                    <span className="flex items-center gap-3">
-                      Commit Task
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <span className="font-heading text-lg text-primary w-6 text-center">
+                      {newTaskPriority}
                     </span>
-                  </Button>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          </div>
+
+              {/* Submit Button */}
+              <div className="pt-6">
+                <Button
+                  onClick={handleAddTask}
+                  disabled={!newTaskTitle.trim()}
+                  className="w-full md:w-auto bg-primary text-background hover:bg-primary/90 h-14 px-12 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 disabled:opacity-50 disabled:hover:bg-primary group shadow-lg"
+                >
+                  <span className="flex items-center gap-3">
+                    Add Task
+                    <Plus className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  </span>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* 
         =========================================
-        VISUAL BREATHER (Parallax Divider)
+        VISUAL BREATHER (Features Section)
         =========================================
       */}
-      <section className="relative w-full h-[40vh] md:h-[60vh] overflow-hidden bg-foreground">
-        <div className="absolute inset-0 bg-primary/20 mix-blend-multiply z-10" />
-        <motion.img
-          style={{ y: useTransform(heroScroll, [0, 1], ["-20%", "20%"]) }}
-          src="https://static.wixstatic.com/media/247794_60f6bcbbc1e54dea93f6523db3fb0781~mv2.png?originWidth=1280&originHeight=704"
-          alt="Abstract Architecture"
-          className="absolute inset-0 w-full h-[140%] object-cover grayscale opacity-50"
-        />
-        <div className="absolute inset-0 z-20 flex items-center justify-center px-4">
-          <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-background uppercase tracking-widest text-center max-w-4xl leading-tight mix-blend-overlay">
-            Structure Creates Freedom
-          </h2>
+      <section className="relative w-full bg-foreground py-24 md:py-40 px-4 md:px-8 lg:px-12">
+        <div className="w-full max-w-[120rem] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isListInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20"
+          >
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase leading-tight text-background mb-6">
+              Why Choose Our Task Manager?
+            </h2>
+            <p className="font-paragraph text-lg text-background/80 max-w-2xl mx-auto">
+              Everything you need to organize, prioritize, and execute your tasks efficiently.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Easy to Use",
+                description: "Get started in minutes. Just add your tasks and start organizing your workflow.",
+                icon: "✓"
+              },
+              {
+                title: "Fully Customizable",
+                description: "Set priorities, due dates, and detailed notes for each task.",
+                icon: "⚙"
+              },
+              {
+                title: "Always Accessible",
+                description: "Access your tasks anytime, anywhere. Your data is always in sync.",
+                icon: "☁"
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isListInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-background/10 p-8 rounded-2xl border border-background/20 hover:border-primary/50 transition-all duration-300"
+              >
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="font-heading text-xl uppercase text-background mb-3">
+                  {feature.title}
+                </h3>
+                <p className="font-paragraph text-background/80">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -344,27 +374,22 @@ export default function HomePage() {
         ref={listSectionRef}
         className="relative w-full bg-background py-24 md:py-40 px-4 md:px-8 lg:px-12"
       >
-        <div className="max-w-[120rem] mx-auto">
+        <div className="w-full max-w-[120rem] mx-auto">
           
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isListInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
+            className="mb-16"
           >
-            <SectionHeading title="The Ledger" subtitle="02. Execution" />
-            
-            {/* Filter/Sort visual placeholder (non-functional, for architectural feel) */}
-            <div className="flex items-center gap-4 pb-4 md:pb-6">
-              <div className="h-[1px] w-12 bg-foreground/20 hidden md:block" />
-              <span className="font-heading text-xs uppercase tracking-widest text-subtletext">
-                Sorted by Priority
-              </span>
-            </div>
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-primary mb-4">
+              Your Tasks
+            </p>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase leading-tight text-foreground">
+              Task List
+            </h2>
           </motion.div>
-
-          <HairlineDivider className="mb-16" />
 
           {/* Task Grid Container - CRASH PREVENTION: Always render this container */}
           <div className="relative min-h-[400px]">
@@ -380,7 +405,7 @@ export default function HomePage() {
                 >
                   <div className="flex flex-col items-center gap-4">
                     <LoadingSpinner />
-                    <p className="font-heading text-xs uppercase tracking-widest text-primary">Syncing Data</p>
+                    <p className="font-heading text-xs uppercase tracking-widest text-primary">Loading Tasks</p>
                   </div>
                 </motion.div>
               )}
@@ -391,14 +416,14 @@ export default function HomePage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full py-32 flex flex-col items-center justify-center text-center border border-dashed border-foreground/20 rounded-2xl bg-secondary/50"
+                className="w-full py-32 flex flex-col items-center justify-center text-center border-2 border-dashed border-foreground/20 rounded-3xl bg-secondary/50"
               >
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                  <Check className="w-8 h-8 text-primary" />
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-primary" />
                 </div>
-                <h3 className="font-heading text-2xl uppercase text-foreground mb-2">Ledger is Empty</h3>
+                <h3 className="font-heading text-2xl uppercase text-foreground mb-2">No Tasks Yet</h3>
                 <p className="font-paragraph text-subtletext max-w-md">
-                  No active objectives found. Initiate a new protocol above to begin tracking your workflow.
+                  Create your first task above to get started organizing your workflow.
                 </p>
               </motion.div>
             )}
@@ -414,16 +439,16 @@ export default function HomePage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className={`group relative flex flex-col bg-secondary border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl ${
+                    className={`group relative flex flex-col bg-secondary border-2 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg ${
                       task.isCompleted 
-                        ? 'border-foreground/5 bg-background/50' 
-                        : 'border-foreground/10 hover:border-primary/50'
+                        ? 'border-foreground/10 bg-background/50' 
+                        : 'border-primary/30 hover:border-primary'
                     }`}
                   >
                     {/* Priority Indicator Line */}
                     <div 
                       className={`absolute left-0 top-0 bottom-0 w-1 transition-colors duration-300 ${
-                        task.isCompleted ? 'bg-foreground/10' : 'bg-primary group-hover:bg-primary'
+                        task.isCompleted ? 'bg-foreground/10' : 'bg-primary'
                       }`}
                       style={{ opacity: task.priority ? task.priority / 5 : 0.2 }}
                     />
@@ -443,9 +468,9 @@ export default function HomePage() {
                         <div className="flex items-center gap-2 shrink-0">
                           <button
                             onClick={() => handleToggleComplete(task)}
-                            className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border ${
+                            className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border-2 ${
                               task.isCompleted
-                                ? 'bg-primary border-primary text-primary-foreground'
+                                ? 'bg-primary border-primary text-background'
                                 : 'bg-background border-foreground/20 text-foreground/40 hover:border-primary hover:text-primary'
                             }`}
                             aria-label={task.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
@@ -455,7 +480,7 @@ export default function HomePage() {
                           
                           <button
                             onClick={() => handleDeleteTask(task._id)}
-                            className="w-12 h-12 rounded-xl flex items-center justify-center bg-background border border-foreground/20 text-foreground/40 hover:bg-destructive hover:border-destructive hover:text-destructiveforeground transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                            className="w-12 h-12 rounded-xl flex items-center justify-center bg-background border-2 border-foreground/20 text-foreground/40 hover:bg-destructive hover:border-destructive hover:text-destructiveforeground transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100"
                             aria-label="Delete task"
                           >
                             <Trash2 className="w-5 h-5" />
