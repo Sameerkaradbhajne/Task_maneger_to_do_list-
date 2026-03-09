@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Plus, Trash2, Flame, Calendar, TrendingUp } from 'lucide-react';
+import { Plus, Trash2, Flame, Calendar, TrendingUp, Moon, Sun } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Habits } from '@/entities';
 import Header from '@/components/Header';
@@ -8,12 +8,17 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import HabitGrid from '@/components/HabitGrid';
+import TodaysFocus from '@/components/TodaysFocus';
+import { useHabitStore } from '@/store/habitStore';
 
 export default function HabitsPage() {
   const [habits, setHabits] = useState<Habits[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newHabitName, setNewHabitName] = useState('');
   const [newHabitFrequency, setNewHabitFrequency] = useState('Daily');
+  const theme = useHabitStore((state) => state.theme);
+  const setTheme = useHabitStore((state) => state.setTheme);
 
   useEffect(() => {
     loadHabits();
@@ -93,8 +98,12 @@ export default function HabitsPage() {
   const formSectionRef = useRef<HTMLDivElement>(null);
   const isFormInView = useInView(formSectionRef, { once: true, margin: "-100px" });
 
+  const themeClasses = theme === 'pastel' 
+    ? 'bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50'
+    : 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900';
+
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary selection:text-primary-foreground overflow-clip">
+    <div className={`min-h-screen flex flex-col ${themeClasses} text-foreground selection:bg-primary selection:text-primary-foreground overflow-clip`}>
       <Header />
 
       {/* Hero Section */}
@@ -111,29 +120,48 @@ export default function HabitsPage() {
               className="relative z-20 flex flex-col justify-center"
             >
               <p className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-primary-foreground/80 mb-6">
-                Build Better Habits
+                HabitFlow Master
               </p>
               <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-primary-foreground mb-8">
-                Track Your Daily Habits
+                Build Better Habits
               </h1>
               <p className="font-paragraph text-lg md:text-xl text-primary-foreground/90 leading-relaxed mb-8 max-w-lg">
-                Build consistency and momentum with our habit tracker. Monitor your streaks and celebrate your progress.
+                Track your daily habits with our advanced streak system. Visualize your progress and celebrate consistency with real-time analytics.
               </p>
 
               <ul className="space-y-4 mb-12">
                 <li className="flex items-center gap-3 text-primary-foreground font-paragraph">
                   <div className="w-2 h-2 bg-primary-foreground rounded-full" />
-                  <span>Track daily habits with streak counting</span>
+                  <span>7-day visual habit grid with streak tracking</span>
                 </li>
                 <li className="flex items-center gap-3 text-primary-foreground font-paragraph">
                   <div className="w-2 h-2 bg-primary-foreground rounded-full" />
-                  <span>Visualize your progress and consistency</span>
+                  <span>🔥 Flame icon for streaks over 3 days</span>
                 </li>
                 <li className="flex items-center gap-3 text-primary-foreground font-paragraph">
                   <div className="w-2 h-2 bg-primary-foreground rounded-full" />
-                  <span>Build lasting habits with frequency tracking</span>
+                  <span>Real-time progress analytics and insights</span>
                 </li>
               </ul>
+
+              <div className="flex items-center gap-4">
+                <Button
+                  onClick={() => setTheme(theme === 'pastel' ? 'dark' : 'pastel')}
+                  className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 h-12 px-6 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 flex items-center gap-2"
+                >
+                  {theme === 'pastel' ? (
+                    <>
+                      <Moon className="w-4 h-4" />
+                      Dark Mode
+                    </>
+                  ) : (
+                    <>
+                      <Sun className="w-4 h-4" />
+                      Pastel Mode
+                    </>
+                  )}
+                </Button>
+              </div>
             </motion.div>
 
             <motion.div
@@ -331,6 +359,11 @@ export default function HabitsPage() {
                       </div>
                     </div>
 
+                    {/* Habit Grid */}
+                    <div className="mb-6">
+                      <HabitGrid habit={habit} onUpdate={loadHabits} />
+                    </div>
+
                     {/* Streak Display */}
                     <div className="mt-auto pt-6 border-t border-primary-foreground/10 flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -349,6 +382,9 @@ export default function HabitsPage() {
           </div>
         </div>
       </section>
+
+      {/* Today's Focus Section */}
+      <TodaysFocus />
 
       <Footer />
     </div>
