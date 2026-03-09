@@ -2,7 +2,7 @@
 
 A modern, full-featured Wix Astro template built with React, TypeScript, and Tailwind CSS. This template provides a solid foundation for building dynamic, interactive websites with Wix's powerful ecosystem.
 
-## 🚀 Features
+## 🚀 Features WEBSITE LINK :https://my-site-grv1ihew-sameerkaradbhajane.wix-vibe-site.com
 
 - **Astro Framework** - Modern static site generator with server-side rendering
 - **React Integration** - Full React support with JSX components
