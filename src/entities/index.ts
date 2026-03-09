@@ -4,6 +4,29 @@
  */
 
 /**
+ * Collection ID: habits
+ * Interface for Habits
+ */
+export interface Habits {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  habitName?: string;
+  /** @wixFieldType text */
+  frequency?: string;
+  /** @wixFieldType number */
+  streakCount?: number;
+  /** @wixFieldType boolean */
+  isCompletedToday?: boolean;
+  /** @wixFieldType date */
+  lastCompletedDate?: Date | string;
+  /** @wixFieldType datetime */
+  creationDate?: Date | string;
+}
+
+
+/**
  * Collection ID: tasks
  * Interface for Tasks
  */
@@ -21,4 +44,27 @@ export interface Tasks {
   priority?: number;
   /** @wixFieldType text */
   notes?: string;
+}
+
+
+/**
+ * Collection ID: timetable
+ * Interface for TimetableEntries
+ */
+export interface TimetableEntries {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  eventTitle?: string;
+  /** @wixFieldType datetime */
+  startTime?: Date | string;
+  /** @wixFieldType datetime */
+  endTime?: Date | string;
+  /** @wixFieldType text */
+  description?: string;
+  /** @wixFieldType text */
+  location?: string;
+  /** @wixFieldType boolean */
+  isAllDay?: boolean;
 }

@@ -122,7 +122,7 @@ export default function HomePage() {
       */}
       <section 
         ref={heroRef} 
-        className="relative w-full bg-gradient-to-br from-primary via-primary to-primary/90 pt-20 md:pt-32 pb-20 md:pb-32 px-4 md:px-8 lg:px-12 min-h-[85vh] flex items-center"
+        className="relative w-full bg-gradient-to-br from-primary via-primary-dark to-dark-bg pt-20 md:pt-32 pb-20 md:pb-32 px-4 md:px-8 lg:px-12 min-h-[85vh] flex items-center"
       >
         <div className="w-full max-w-[120rem] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -137,34 +137,34 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <p className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-background/80 mb-6">
+                <p className="font-heading text-sm md:text-base uppercase tracking-[0.3em] text-primary-foreground/80 mb-6">
                   Organize & Execute
                 </p>
-                <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-background mb-8">
+                <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight text-primary-foreground mb-8">
                   Free Online Task Manager
                 </h1>
-                <p className="font-paragraph text-lg md:text-xl text-background/90 leading-relaxed mb-8 max-w-lg">
+                <p className="font-paragraph text-lg md:text-xl text-primary-foreground/90 leading-relaxed mb-8 max-w-lg">
                   Organize and manage your team like a boss. With our free task management tool, you can streamline workflows and boost productivity.
                 </p>
                 
                 {/* Feature List */}
                 <ul className="space-y-4 mb-12">
-                  <li className="flex items-center gap-3 text-background font-paragraph">
-                    <div className="w-2 h-2 bg-background rounded-full" />
+                  <li className="flex items-center gap-3 text-primary-foreground font-paragraph">
+                    <div className="w-2 h-2 bg-primary-foreground rounded-full" />
                     <span>Get started in less than 30 minutes</span>
                   </li>
-                  <li className="flex items-center gap-3 text-background font-paragraph">
-                    <div className="w-2 h-2 bg-background rounded-full" />
+                  <li className="flex items-center gap-3 text-primary-foreground font-paragraph">
+                    <div className="w-2 h-2 bg-primary-foreground rounded-full" />
                     <span>Detailed FAQ and onboarding support</span>
                   </li>
-                  <li className="flex items-center gap-3 text-background font-paragraph">
-                    <div className="w-2 h-2 bg-background rounded-full" />
+                  <li className="flex items-center gap-3 text-primary-foreground font-paragraph">
+                    <div className="w-2 h-2 bg-primary-foreground rounded-full" />
                     <span>Migrate your data in one click</span>
                   </li>
                 </ul>
 
                 <Button
-                  className="w-fit bg-background text-primary hover:bg-background/90 h-14 px-10 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 group shadow-lg"
+                  className="w-fit bg-primary-foreground text-primary hover:bg-primary-foreground/90 h-14 px-10 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 group shadow-lg"
                 >
                   <span className="flex items-center gap-3">
                     Get Started
@@ -181,15 +181,15 @@ export default function HomePage() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-background/20 to-transparent z-10 rounded-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-foreground/20 to-transparent z-10 rounded-3xl" />
               <Image src="https://static.wixstatic.com/media/247794_cb5cc97499fe4078914bf3f720cffc56~mv2.png?originWidth=768&originHeight=448" alt="Task Manager Dashboard" className="w-full h-full object-cover" />
             </motion.div>
           </div>
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-background/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-background/5 rounded-full blur-3xl -z-10" />
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary-foreground/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary-foreground/5 rounded-full blur-3xl -z-10" />
       </section>
 
       {/* 
@@ -293,7 +293,7 @@ export default function HomePage() {
                 <Button
                   onClick={handleAddTask}
                   disabled={!newTaskTitle.trim()}
-                  className="w-full md:w-auto bg-primary text-background hover:bg-primary/90 h-14 px-12 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 disabled:opacity-50 disabled:hover:bg-primary group shadow-lg"
+                  className="w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary-dark h-14 px-12 text-sm font-heading uppercase tracking-widest rounded-full transition-all duration-300 disabled:opacity-50 disabled:hover:bg-primary group shadow-lg"
                 >
                   <span className="flex items-center gap-3">
                     Add Task
@@ -311,7 +311,7 @@ export default function HomePage() {
         VISUAL BREATHER (Features Section)
         =========================================
       */}
-      <section className="relative w-full bg-foreground py-24 md:py-40 px-4 md:px-8 lg:px-12">
+      <section className="relative w-full bg-dark-bg py-24 md:py-40 px-4 md:px-8 lg:px-12">
         <div className="w-full max-w-[120rem] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -319,10 +319,10 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-20"
           >
-            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase leading-tight text-background mb-6">
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl uppercase leading-tight text-primary-foreground mb-6">
               Why Choose Our Task Manager?
             </h2>
-            <p className="font-paragraph text-lg text-background/80 max-w-2xl mx-auto">
+            <p className="font-paragraph text-lg text-primary-foreground/80 max-w-2xl mx-auto">
               Everything you need to organize, prioritize, and execute your tasks efficiently.
             </p>
           </motion.div>
@@ -350,13 +350,13 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isListInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-background/10 p-8 rounded-2xl border border-background/20 hover:border-primary/50 transition-all duration-300"
+                className="bg-primary-foreground/10 p-8 rounded-2xl border border-primary-foreground/20 hover:border-accent-blue/50 transition-all duration-300"
               >
                 <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="font-heading text-xl uppercase text-background mb-3">
+                <h3 className="font-heading text-xl uppercase text-primary-foreground mb-3">
                   {feature.title}
                 </h3>
-                <p className="font-paragraph text-background/80">
+                <p className="font-paragraph text-primary-foreground/80">
                   {feature.description}
                 </p>
               </motion.div>
@@ -470,7 +470,7 @@ export default function HomePage() {
                             onClick={() => handleToggleComplete(task)}
                             className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 border-2 ${
                               task.isCompleted
-                                ? 'bg-primary border-primary text-background'
+                                ? 'bg-primary border-primary text-primary-foreground'
                                 : 'bg-background border-foreground/20 text-foreground/40 hover:border-primary hover:text-primary'
                             }`}
                             aria-label={task.isCompleted ? 'Mark as incomplete' : 'Mark as complete'}
