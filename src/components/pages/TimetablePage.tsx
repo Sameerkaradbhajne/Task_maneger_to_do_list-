@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Clock, MapPin, Calendar as CalendarIcon } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
-import { Timetable } from '@/entities';
+import { TimetableEntries } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 export default function TimetablePage() {
-  const [events, setEvents] = useState<Timetable[]>([]);
+  const [events, setEvents] = useState<TimetableEntries[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [newEventTitle, setNewEventTitle] = useState('');
   const [newEventDescription, setNewEventDescription] = useState('');
@@ -27,7 +27,7 @@ export default function TimetablePage() {
   const loadEvents = async () => {
     try {
       setIsLoading(true);
-      const result = await BaseCrudService.getAll<Timetable>('timetable');
+      const result = await BaseCrudService.getAll<TimetableEntries>('timetable');
       setEvents(result.items.sort((a, b) => {
         const dateA = new Date(a.startTime || 0).getTime();
         const dateB = new Date(b.startTime || 0).getTime();
@@ -43,7 +43,7 @@ export default function TimetablePage() {
   const handleAddEvent = async () => {
     if (!newEventTitle.trim()) return;
 
-    const newEvent: Timetable = {
+    const newEvent: TimetableEntries = {
       _id: crypto.randomUUID(),
       eventTitle: newEventTitle,
       description: newEventDescription,
